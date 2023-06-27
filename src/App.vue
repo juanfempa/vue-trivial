@@ -46,26 +46,23 @@ getPregunta()
 </script>
 
 <template>
-  <div class="card w-96 bg-base-100 shadow-xl">
-    <div class="card-body">
-      <h2 class="card-title" v-html="pregunta"></h2>
-      <p>
-      <ul>
-        <li v-for="respuesta in array" :key="respuesta" @click="respuestaCorrecta(respuesta)">
-          <div :class="salidaClase()" v-html="respuesta"></div>
-        </li>
-      </ul>
-      </p>
-      <div class="card-actions">
-        <button class="btn btn-primary" @click="shuffledArr">Mezclar</button>
+  <div class="flex justify-center">
+    <div class="card m-8 w-11/12 bg-base-100 shadow-xl">
+      <div class="card-body">
+        <h2 class="card-title" v-html="pregunta"></h2>
+
+        <ul>
+          <li v-for="respuesta in array" :key="respuesta" @click="respuestaCorrecta(respuesta)">
+            <div class="cursor-pointer" :class="salidaClase()" v-html="respuesta"></div>
+          </li>
+        </ul>
+
+        <div class="card-actions justify-around">
+          <button class="btn btn-primary" @click="shuffledArr">Mezclar</button>
+          <button class="btn btn-success" @click="getPregunta">Nueva</button>
+        </div>
       </div>
     </div>
-  </div>
-  <div :class="{ error: true, acierto: true, pendiente: false }">
-    hola
-  </div>
-  <div class="error acierto">
-    hola
   </div>
 </template>
 
