@@ -1,8 +1,41 @@
 <script setup>
+// const OPENAI_API_KEY = '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'
+
 import { ref } from 'vue';
+
+// [
+//   'Animals',
+//   'Any Category',
+//   'Art',
+//   'Celebrities',
+//   'Entertainment: Board Games',
+//   'Entertainment: Books',
+//   'Entertainment: Cartoon & Animations',
+//   'Entertainment: Comics',
+//   'Entertainment: Film',
+//   'Entertainment: Japanese Anime & Manga',
+//   'Entertainment: Music',
+//   'Entertainment: Musicals & Theatres',
+//   'Entertainment: Television',
+//   'Entertainment: Video Games',
+//   'General Knowledge',
+//   'Geography',
+//   'History',
+//   'Mythology',
+//   'Politics',
+//   'Science & Nature',
+//   'Science: Computers',
+//   'Science: Gadgets',
+//   'Science: Mathematics',
+//   'Sports',
+//   'Vehicles',
+// ].map((categoria) => {
+//   console.log(categoria.split(' ')[0].replace(':', '').toLowerCase())
+// })
 
 const triviaApi = 'https://opentdb.com/api.php?amount=1&type=multiple'
 const acierto = ref('false');
+const categoria = ref('any');
 const array = ref(['London', 'Berlin', 'Brussels', 'Paris']);
 const contestada = ref(false);
 const pregunta = ref('¿Aquí va la pregunta?');
@@ -37,6 +70,7 @@ const getPregunta = () => {
       p.incorrect_answers.push(p.correct_answer)
       array.value = p.incorrect_answers
       pregunta.value = p.question
+      categoria.value = p.category.split(' ')[0].replace(':', '').toLowerCase()
       correctAnswer.value = p.correct_answer
       shuffledArr()
     })
@@ -50,7 +84,7 @@ getPregunta()
     <div class="card m-8 w-11/12 bg-base-100 shadow-xl">
       <div class="card-body">
         <h2 class="card-title" v-html="pregunta"></h2>
-
+        <h3>Categoría: {{ categoria + '.jpg' }}</h3>
         <ul>
           <li v-for="respuesta in array" :key="respuesta" @click="respuestaCorrecta(respuesta)">
             <div class="cursor-pointer" :class="salidaClase()" v-html="respuesta"></div>
